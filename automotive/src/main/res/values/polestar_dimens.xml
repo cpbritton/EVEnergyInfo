@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="bottom_navigation_icon_size" tools:override="true">85dp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">95dp</dimen>
+    <dimen name="tab_bar_icon_size" tools:override="true">75dp</dimen>
+
+    <dimen name="tab_icon_size">36dp</dimen>
+
+    <!--SplashActivity dimens-->
+    <dimen name="splash_activity_logo_width">800dp</dimen>
+    <dimen name="splash_activity_logo_height">200dp</dimen>
+    <dimen name="splash_activity_icon_width">800dp</dimen>
+    <dimen name="splash_activity_icon_height">300dp</dimen>
+    <dimen name="splash_activity_icon_marginTop">200dp</dimen>
+
+    <!--MainActivity dimens-->
+    <dimen name="main_activity_fragment_container_height">1400dp</dimen>
+    <dimen name="bottom_navigation_height">125dp</dimen>
+
+    <!--SpeedFragment dimens-->
+    <dimen name="charging_message_marginTop">300dp</dimen>
+    <dimen name="charging_message_textSize">45sp</dimen>
+    <dimen name="speedometer_margin_left_right">20dp</dimen>
+    <dimen name="speedometer_marginTop">130dp</dimen>
+    <dimen name="speedometer_borderSize">8dp</dimen>
+    <dimen name="parking_brake_size">70dp</dimen>
+    <dimen name="parking_brake_marginTop">330dp</dimen>
+    <dimen name="parking_brake_marginStart">230dp</dimen>
+    <dimen name="low_fuel_size">65dp</dimen>
+    <dimen name="low_fuel_marginTop">315dp</dimen>
+    <dimen name="low_fuel_marginStart">720dp</dimen>
+    <dimen name="gear_marginTop">730dp</dimen>
+    <dimen name="gear_textSize">50sp</dimen>
+
+    <!--FuelFragment dimens-->
+    <dimen name="polestar2_marginTop">80dp</dimen>
+    <dimen name="polestar2_width">600dp</dimen>
+    <dimen name="polestar2_height">800dp</dimen>
+    <dimen name="view_width">3dp</dimen>
+    <dimen name="view_height">120dp</dimen>
+    <dimen name="view1_marginTop">524dp</dimen>
+    <dimen name="view2_marginTop">844dp</dimen>
+    <dimen name="battery_header_marginTop">524dp</dimen>
+    <dimen name="battery_header_padding">3dp</dimen>
+    <dimen name="header_text_size">30sp</dimen>
+    <dimen name="battery_icon_size">60dp</dimen>
+    <dimen name="battery_icon_marginEnd">-40dp</dimen>
+    <dimen name="battery_icon_marginTop">572dp</dimen>
+    <dimen name="range_text_width">200dp</dimen>
+    <dimen name="range_text_height">70dp</dimen>
+    <dimen name="range_text_marginTop">572dp</dimen>
+    <dimen name="range_text_paddingStart">7dp</dimen>
+    <dimen name="sensors_text_size">45sp</dimen>
+    <dimen name="battery_capacity_header_marginTop">844dp</dimen>
+    <dimen name="battery_capacity_text_width">250dp</dimen>
+    <dimen name="battery_capacity_text_height">70dp</dimen>
+    <dimen name="battery_capacity_text_marginTop">892dp</dimen>
+    <dimen name="battery_level_text_width">150dp</dimen>
+    <dimen name="battery_level_text_height">70dp</dimen>
+    <dimen name="odometer_and_charge_header_width">165dp</dimen>
+    <dimen name="odometer_and_charge_text_width">180dp</dimen>
+    <dimen name="odometer_and_charge_text_height">70dp</dimen>
+
+    <!--CarInfoFragment dimens-->
+    <dimen name="polestar2_side_width">800dp</dimen>
+    <dimen name="polestar2_side_height">300dp</dimen>
+    <dimen name="polestar2_side_marginTop">280dp</dimen>
+    <dimen name="tab_layout_min_width">460dp</dimen>
+    <dimen name="tab_layout_padding">10dp</dimen>
+    <dimen name="car_info_fragment_container_height">830dp</dimen>
+    <dimen name="car_info_fragment_container_margin">20dp</dimen>
+
+    <!--CarInfoTabFragment dimens-->
+    <dimen name="text_view_textSize">35sp</dimen>
+    <dimen name="text_view_margin">15dp</dimen>
+    <dimen name="car_info_view_height">3dp</dimen>
+    <dimen name="car_info_view_margin">40dp</dimen>
+
+    <!--CarInfoSensorsFragment dimens-->
+    <dimen name="car_sensor_fragment_layout_height">400dp</dimen>
+
+    <!--Benchmark custom dialog layout dimens-->
+    <dimen name="benchmark_custom_dialog_layout_width">900dp</dimen>
+    <dimen name="benchmark_custom_dialog_layout_height">600dp</dimen>
+    <dimen name="progress_indicator_size">90dp</dimen>
+    <dimen name="progress_indicator_marginTop">30dp</dimen>
+    <dimen name="progress_info_textSize">35sp</dimen>
+    <dimen name="progress_info_marginTop">20dp</dimen>
+
+    <!--Benchmark result recycler view layout dimens-->
+    <dimen name="benchmark_result_recycler_view_layout_height">110dp</dimen>
+    <dimen name="benchmark_result_recycler_view_layout_margin">10dp</dimen>
+    <dimen name="benchmark_result_recycler_view_card_elevation">6dp</dimen>
+    <dimen name="recycler_view_inner_layout_padding">5dp</dimen>
+    <dimen name="benchmark_score_textSize">35sp</dimen>
+    <dimen name="benchmark_score_marginTop">4dp</dimen>
+    <dimen name="benchmark_name_textSize">30sp</dimen>
+    <dimen name="benchmark_name_marginTop">6dp</dimen>
+
+    <!--Custom tab layout dimens-->
+    <dimen name="custom_tab_layout_imageview_size">60dp</dimen>
+    <dimen name="custom_tab_layout_textview_marginTop">90dp</dimen>
+    <dimen name="custom_tab_layout_textview_textSize">30sp</dimen>
+
+    <!--Sensors recycler view layout dimens-->
+    <dimen name="sensors_recycler_view_layout_height">105dp</dimen>
+    <dimen name="sensors_recycler_view_layout_margin">12dp</dimen>
+    <dimen name="sensors_recycler_view_card_elevation">6dp</dimen>
+    <dimen name="sensor_name_textSize">30sp</dimen>
+    <dimen name="sensor_name_marginTop">8dp</dimen>
+    <dimen name="vendor_name_textSize">25sp</dimen>
+    <dimen name="vendor_name_marginTop">8dp</dimen>
+
+    <!--BenchmarkFragment dimens-->
+    <dimen name="benchmark_tab_layout_marginTop">300dp</dimen>
+    <dimen name="benchmark_tab_layout_minWidth">550dp</dimen>
+    <dimen name="benchmark_tab_layout_padding">20dp</dimen>
+    <dimen name="benchmark_tab_fragment_container_height">1130dp</dimen>
+    <dimen name="benchmark_tab_fragment_container_margin">20dp</dimen>
+
+    <!--BenchmarkTabFragment dimens-->
+    <dimen name="build_info_text_Size">40sp</dimen>
+    <dimen name="build_info_marginTop">30dp</dimen>
+    <dimen name="benchmark_tab_textview_margin">15dp</dimen>
+    <dimen name="benchmark_tab_textview_marginTop">50dp</dimen>
+    <dimen name="benchmark_tab_textview_textSize">35sp</dimen>
+    <dimen name="benchmark_tab_view_height">3dp</dimen>
+    <dimen name="benchmark_tab_view_margin">40dp</dimen>
+    <dimen name="benchmark_tab_button_marginTop">40dp</dimen>
+    <dimen name="benchmark_tab_button_margin">250dp</dimen>
+    <dimen name="benchmark_tab_button_padding">15dp</dimen>
+    <dimen name="benchmark_tab_button_textSize">30sp</dimen>
+
+    <!--BenchmarkResultFragment dimens-->
+    <dimen name="benchmark_result_tab_layout_height">700dp</dimen>
+    <dimen name="benchmark_result_recycler_view_paddingBottom">20dp</dimen>
+    <dimen name="benchmark_result_recycler_view_paddingTop">5dp</dimen>
+
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EVEnergyInfo</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="info_title_fragment">Info Screen</string>
+    <string name="username_hint">hint</string>
+    <string name="main_current_gear">Current Gear:</string>
+    <string name="car_make_label">Make:</string>
+    <string name="car_model_label">Model:</string>
+    <string name="car_speed_current_label">Speed:</string>
+    <string name="charging">Charging</string>
+</resources>

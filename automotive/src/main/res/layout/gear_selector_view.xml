@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    >
+    <TextView
+        android:enabled="false"
+        android:id="@+id/text_p"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="P"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+    <TextView
+        android:enabled="false"
+        android:id="@+id/text_r"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="R"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+    <TextView
+        android:enabled="false"
+        android:id="@+id/text_n"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="N"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+    <TextView
+        android:enabled="false"
+        android:id="@+id/text_d"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="D"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+</LinearLayout>
