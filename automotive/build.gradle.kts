@@ -43,9 +43,10 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.10.0")
     implementation(project(":simple-gauge-android"))
-    //implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.car.app:app-automotive:1.4.0-alpha01")
+    implementation("com.diogobernardino:williamchart:3.10.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

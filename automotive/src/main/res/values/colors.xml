@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="grey">#A9A9A9</color>
-    <color name="gray">@color/grey</color>
     <color name="white">#FFFFFF</color>
     <color name="orange">#FF5722</color>
     <color name="black">#000000</color>
@@ -10,4 +9,5 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+    <color name="gauge_red">#00FFFF</color>
 </resources>

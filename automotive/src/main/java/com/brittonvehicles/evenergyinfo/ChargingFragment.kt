@@ -20,6 +20,7 @@ import android.content.ComponentName
 import android.os.IBinder
 import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
 import com.brittonvehicles.evenergyinfo.databinding.FragmentChargingBinding
+import com.google.android.material.color.MaterialColors
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,9 +76,6 @@ class ChargingFragment : Fragment() {
         car = Car.createCar(this.context)
         carPropertyManager = car.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager;
 
-        @Suppress("DEPRECATION")
-        val carInfo = car.getCarManager(Car.INFO_SERVICE) as CarInfoManager;
-
         // Subscribes to the gear change events.
         carPropertyManager.registerCallback(
             carPropertyListener,
@@ -128,7 +126,7 @@ class ChargingFragment : Fragment() {
 
     private fun configureTempGauge(){
         val range = Range()
-        range.color = Color.BLUE
+        range.color = Color.RED
         range.from = 0.0
         range.to = 40.0
 

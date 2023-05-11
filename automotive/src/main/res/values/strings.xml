@@ -8,4 +8,8 @@
     <string name="car_model_label">Model:</string>
     <string name="car_speed_current_label">Speed:</string>
     <string name="charging">Charging</string>
+    <string name="charge_history_31days">Last 31 Days</string>
+    <string name="charge_history_total_charged">Total Charged</string>
+    <string name="car_permission_desc_mock_vehicle_hal">Mock Permissions</string>
+    <string name="car_permission_label_mock_vehicle_hal">mockhal</string>
 </resources>

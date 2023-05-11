@@ -19,7 +19,7 @@ public class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifec
         when (position) {
             0 -> return MainFragment()
             1 -> return ChargingFragment()
-            2 -> return ChargingFragment()
+            2 -> return StatsFragment()
         }
         return InfoFragment()
     }

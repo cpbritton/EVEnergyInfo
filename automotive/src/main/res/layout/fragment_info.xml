@@ -55,6 +55,11 @@
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/carLog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 
 
