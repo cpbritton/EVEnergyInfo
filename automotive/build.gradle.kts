@@ -37,15 +37,18 @@ android {
         viewBinding = true
     }
     useLibrary( "android.car")
+    buildToolsVersion = "34.0.0 rc4"
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation(project(":simple-gauge-android"))
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.car.app:app-automotive:1.4.0-alpha01")
-    implementation("com.diogobernardino:williamchart:3.10.1")
+    implementation("androidx.car.app:app:1.2.0")
+
+    implementation("com.diogobernardino:williamchart:3.11.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

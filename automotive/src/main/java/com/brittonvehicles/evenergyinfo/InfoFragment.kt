@@ -3,7 +3,6 @@ package com.brittonvehicles.evenergyinfo
 import android.car.Car
 import android.car.CarInfoManager
 import android.car.VehicleAreaType
-import android.car.VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL
 import android.car.VehiclePropertyIds
 import android.car.hardware.CarPropertyValue
 import android.car.hardware.property.CarPropertyManager
@@ -13,9 +12,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.car.app.hardware.common.CarUnit.CarSpeedUnit
+import androidx.car.app.model.CarIcon
+import androidx.car.app.model.Distance
 import com.brittonvehicles.evenergyinfo.databinding.FragmentInfoBinding
-import com.brittonvehicles.evenergyinfo.databinding.FragmentStatsBinding
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -137,6 +137,8 @@ class InfoFragment : Fragment() {
              Log.w(TAG, "Received error setting CarProperty INFO_MAKE")
         }
 
+        val remaining = Distance.create(200.0, Distance.UNIT_MILES)
+        Log.w(tag,CarSpeedUnit().toString())
     }
 
 
