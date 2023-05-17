@@ -18,8 +18,11 @@ import android.car.hardware.CarPropertyValue
 import android.car.hardware.property.CarPropertyManager
 import android.content.ComponentName
 import android.os.IBinder
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
 import com.brittonvehicles.evenergyinfo.databinding.FragmentChargingBinding
+import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.google.android.material.color.MaterialColors
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,29 +45,10 @@ class ChargingFragment : Fragment() {
     private lateinit var batteryVoltage: ArcGauge
     private lateinit var batteryTemp: ArcGauge
 
-    /** Car API. */
-    private lateinit var car: Car
-
-    /**
-     * An API to read VHAL (vehicle hardware access layer) properties. List of vehicle properties
-     * can be found in {@link VehiclePropertyIds}.
-     *
-     * <p>https://developer.android.com/reference/android/car/hardware/property/CarPropertyManager
-     */
-    private lateinit var carPropertyManager: CarPropertyManager
+    val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel>()
 
     private var _binding: FragmentChargingBinding? = null
     private val binding get() = _binding!!
-
-    private var carPropertyListener = object : CarPropertyManager.CarPropertyEventCallback {
-        override fun onChangeEvent(value: CarPropertyValue<Any>) {
-            Log.d(TAG, "Received on changed car property event")
-        }
-
-        override fun onErrorEvent(propId: Int, zone: Int) {
-            Log.w(TAG, "Received error car property event, propId=$propId")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,15 +57,6 @@ class ChargingFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        car = Car.createCar(this.context)
-        carPropertyManager = car.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager;
-
-        // Subscribes to the gear change events.
-        carPropertyManager.registerCallback(
-            carPropertyListener,
-            VehiclePropertyIds.CURRENT_GEAR,
-            CarPropertyManager.SENSOR_RATE_ONCHANGE
-        )
     }
 
     private fun configureChargeGauge(){
@@ -108,7 +83,6 @@ class ChargingFragment : Fragment() {
         //set min max and current value
         chargeGauge.minValue = 0.0
         chargeGauge.maxValue = 100.0
-        chargeGauge.value = 70.0
         chargeGauge.label = "%"
 
         chargeGauge.setIcon(
@@ -160,9 +134,7 @@ class ChargingFragment : Fragment() {
 
         batteryTemp.valueColor = Color.WHITE
         batteryTemp.labelColor = Color.WHITE
-//        batteryTemp.setFormatter(ValueFormatter {
-//            it.toInt().toString()
-//        })
+
     }
 
     private fun configureVoltageGauge(){
@@ -209,12 +181,18 @@ class ChargingFragment : Fragment() {
         configureTempGauge()
         configureVoltageGauge()
 
+
+        // TODO: this is wrong metric 
+        energyInfoSharedModel.batteryLevelPercentage.observe(viewLifecycleOwner, Observer<Float> { item ->
+            chargeGauge.value = item.toDouble()
+        })
+
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        car.disconnect()
     }
 }
