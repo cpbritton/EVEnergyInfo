@@ -2,7 +2,6 @@ package com.brittonvehicles.evenergyinfo
 
 import androidx.car.app.hardware.common.CarUnit
 import androidx.car.app.model.*
-import androidx.lifecycle.MutableLiveData
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -30,7 +29,7 @@ fun getDefaultSpeedUnit(): Int {
     }
 }
 
-fun formatCarUnitDistanceFromKilometers(value: Float?, unit: Int?): String {
+fun formatCarUnitDistanceFromKilometers(value: Float?): String {
     if (value == null) return ""
     return formatCarUnitDistance(value *1000 , getDefaultDistanceUnit())
 }

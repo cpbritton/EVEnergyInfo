@@ -2,9 +2,7 @@ package com.brittonvehicles.evenergyinfo.models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.brittonvehicles.evenergyinfo.formatCarUnitDistance
 import com.brittonvehicles.evenergyinfo.formatCarUnitDistanceFromKilometers
-import com.brittonvehicles.evenergyinfo.getDefaultDistanceUnit
 
 class VehicleStatusSharedModel : ViewModel() {
 
@@ -22,7 +20,7 @@ class VehicleStatusSharedModel : ViewModel() {
     val odometer: MutableLiveData<Float>
         get() = _odometer
     val odometerFormatted:MutableLiveData<String>
-        get() = MutableLiveData<String>(formatCarUnitDistanceFromKilometers(_odometer.value , getDefaultDistanceUnit()))
+        get() = MutableLiveData<String>(formatCarUnitDistanceFromKilometers(_odometer.value ))
 
     private val _currentGear = MutableLiveData<Int>()
     fun setCurrentGear(value: Int) {
