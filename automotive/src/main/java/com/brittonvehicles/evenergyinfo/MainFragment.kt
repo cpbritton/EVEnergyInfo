@@ -7,40 +7,39 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.brittonvehicles.evenergyinfo.databinding.FragmentMainBinding
 import com.brittonvehicles.evenergyinfo.databinding.GearSelectorViewBinding
+import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel
-
 
 class MainFragment : Fragment() {
 
     companion object {
         private const val TAG = "MainFragment"
-
     }
 
     private val vehicleStatusSharedModel by activityViewModels<VehicleStatusSharedModel>()
+    private val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel> ()
     private lateinit var gsBinding: GearSelectorViewBinding
+    private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Initialize view
-        // TODO: change to a binding
-        // = FragmentInfoBinding.inflate(inflater, container, false)
-
-        val view: View = inflater.inflate(R.layout.fragment_main, container, false)
-        // Add the GearSelectorView
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         gsBinding = GearSelectorViewBinding.inflate(layoutInflater)
-        val gearSelectorView = gsBinding.root
-        val main = view.findViewById(R.id.gear_selector_point) as ViewGroup
-        main.addView(gearSelectorView, 0)
+        binding.gearSelectorPoint.addView(gsBinding.root)
 
         vehicleStatusSharedModel.currentGear.observe(viewLifecycleOwner, Observer<Int> { item ->
             updateGear(item)
         })
 
-        return view
+        binding.apply {
+            evInfoModel = energyInfoSharedModel
+            vehicleStatusModel = vehicleStatusSharedModel
+        }
+        return binding.root
     }
 
     private fun updateGear(value:Int){

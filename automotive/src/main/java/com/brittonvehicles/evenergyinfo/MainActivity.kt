@@ -6,12 +6,13 @@ import android.car.VehiclePropertyIds
 import android.car.hardware.CarPropertyValue
 import android.car.hardware.property.CarPropertyManager
 import android.graphics.Color
+
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.car.app.hardware.common.CarUnit
-import androidx.car.app.model.Distance
+import androidx.car.app.model.Distance.*
 import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
 import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var carModelBuilder :CarModelBuilder
     private lateinit var car: Car
     private lateinit var carPropertyManager: CarPropertyManager
-
 
     val vehicleInfoSharedModel by viewModels<VehicleInfoSharedModel>()
     val energyInfoSharedModel by viewModels<EnergyInfoSharedModel>()
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         car = Car.createCar(this)
         carPropertyManager = car.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager;
         setupListeners()
-
+        setupCarTest()
     }
 
     private fun setupListeners(){
@@ -150,14 +150,33 @@ class MainActivity : AppCompatActivity() {
 //        field public static final int INVALID = 0; // 0x0
 
         try {
-            carPropertyManager.setProperty( String.javaClass , VehiclePropertyIds.INFO_MAKE, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , "Ginetta")
+            //carPropertyManager.setProperty( String.javaClass , VehiclePropertyIds.INFO_MAKE, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , "Ginetta")
+            carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.RANGE_REMAINING, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 247)
+            carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.PERF_ODOMETER, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 99999.99)
         }catch (exception : Exception){
-            Log.w(Companion.TAG, "Received error setting CarProperty INFO_MAKE")
+            Log.w(Companion.TAG, exception)
         }
+        vehicleStatusSharedModel.setOdometer(12323.23F as Float)
+        energyInfoSharedModel.setRemainingRange(397508F as Float)
+//        val remaining = Distance.create(200.0, Distance.UNIT_KILOMETERS)
+//        Log.w(Companion.TAG,remaining.toString())
 
-        val remaining = Distance.create(200.0, Distance.UNIT_MILES)
-        Log.w(Companion.TAG, CarUnit.CarSpeedUnit().toString())
+//        val measureS : LocaleData.MeasurementSystem  = LocaleData.getMeasurementSystem(ULocale.getDefault())
+//        Log.w(TAG, measureS.toString())
+
     }
+
+//    fun getDistanceInDeviceUnit(context: Context, distance: Double): String {
+//        val resources = context.resources
+//        val unitAbbreviation = resources.configuration.units
+//        val unitMultiplier = when (unitAbbreviation) {
+//            "metric" -> 1.0
+//            "imperial" -> 0.621371
+//            else -> throw IllegalArgumentException("Unsupported unit abbreviation: $unitAbbreviation")
+//        }
+//        return String.format("%.2f %s", distance * unitMultiplier, unitAbbreviation)
+//    }
+
 
 
     private var carPropertyListener = object : CarPropertyManager.CarPropertyEventCallback {
@@ -168,6 +187,8 @@ class MainActivity : AppCompatActivity() {
             if (id == VehiclePropertyIds.INFO_MODEL ) vehicleInfoSharedModel.setModel(prop.value as String)
             if (id == VehiclePropertyIds.CURRENT_GEAR) vehicleStatusSharedModel.setCurrentGear(prop.value as Int)
             if (id == VehiclePropertyIds.EV_BATTERY_LEVEL)energyInfoSharedModel.setBatteryLevelPercentage(prop.value as Float)
+            if (id == VehiclePropertyIds.RANGE_REMAINING) energyInfoSharedModel.setRemainingRange(prop.value as Float)
+            if (id == VehiclePropertyIds.PERF_ODOMETER) vehicleStatusSharedModel.setOdometer(prop.value as Float)
            // if (id == VehiclePropertyIds.INFO_FUEL_TYPE && prop.value is Array<*>)
 
 

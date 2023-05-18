@@ -33,9 +33,6 @@ class InfoFragment : Fragment() {
     val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel>()
     val vehicleStatusSharedModel by activityViewModels<VehicleStatusSharedModel>()
 
-
-    private lateinit var vehicleInfoModel : VehicleInfoSharedModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment">
-
+    <data>
+        <variable
+            name="evInfoModel"
+            type="com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel" />
+        <variable
+            name="vehicleStatusModel"
+            type="com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,4 +29,32 @@
         android:orientation="horizontal"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center_horizontal"
+        android:id="@+id/text_range"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="@{evInfoModel.remainingRangeFormatted}"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText,TextSizeCheck" />
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="center_horizontal"
+        android:id="@+id/text_odometer"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-black"
+        android:text="@{vehicleStatusModel.odometerFormatted}"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout></layout>

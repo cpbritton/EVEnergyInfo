@@ -2,6 +2,8 @@ package com.brittonvehicles.evenergyinfo.models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.brittonvehicles.evenergyinfo.formatCarUnitDistance
+import com.brittonvehicles.evenergyinfo.getDefaultDistanceUnit
 
 class EnergyInfoSharedModel : ViewModel() {
 
@@ -19,11 +21,35 @@ class EnergyInfoSharedModel : ViewModel() {
     // range
     // battery remaining
 
+    private val _batteryCapacity = MutableLiveData<Float>()
+    private val _connectorType = MutableLiveData<Int>()
+    private val _portLocation = MutableLiveData<Int>()
+    private val _chargePortOpen = MutableLiveData<Boolean>()
+    private val _chargePortConnected = MutableLiveData<Boolean>()
+    private val _instantaneousChargeRate = MutableLiveData<Float>()
     private val _batteryLevelPercentage = MutableLiveData<Float>()
+    private val _remainingRange = MutableLiveData<Float>()
+
+    fun setRemainingRange(value: Float){
+        _remainingRange.value = value
+    }
+    val remainingRange:MutableLiveData<Float>
+        get() = _remainingRange
+    val remainingRangeFormatted:MutableLiveData<String>
+        get() = MutableLiveData<String>(formatCarUnitDistance(_remainingRange.value,  getDefaultDistanceUnit()))
     fun setBatteryLevelPercentage(value: Float) {
         _batteryLevelPercentage.value = value
     }
 
     val batteryLevelPercentage: MutableLiveData<Float>
         get() = _batteryLevelPercentage
+
+    fun setBatterCapacity(value:Float){
+        _batteryCapacity.value = value
+    }
+
+    val batteryCapacity:MutableLiveData<Float>
+        get()= _batteryCapacity
+
+
 }

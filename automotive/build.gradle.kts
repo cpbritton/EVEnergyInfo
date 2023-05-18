@@ -35,6 +35,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
     useLibrary( "android.car")
     buildToolsVersion = "34.0.0 rc4"
