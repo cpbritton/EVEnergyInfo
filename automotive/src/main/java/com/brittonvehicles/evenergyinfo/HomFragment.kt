@@ -10,12 +10,11 @@ import androidx.lifecycle.Observer
 import com.brittonvehicles.evenergyinfo.databinding.FragmentMainBinding
 import com.brittonvehicles.evenergyinfo.databinding.GearSelectorViewBinding
 import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
-import com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel
 
-class MainFragment : Fragment() {
+class HomFragment : Fragment() {
 
     companion object {
-        private const val TAG = "MainFragment"
+        private const val TAG = "HomFragment"
     }
 
     private val vehicleStatusSharedModel by activityViewModels<VehicleStatusSharedModel>()

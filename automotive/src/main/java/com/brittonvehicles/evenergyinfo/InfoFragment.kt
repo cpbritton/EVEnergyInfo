@@ -1,7 +1,5 @@
 package com.brittonvehicles.evenergyinfo
 
-import android.car.Car
-import android.car.CarInfoManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import androidx.lifecycle.Observer
 import com.brittonvehicles.evenergyinfo.databinding.FragmentInfoBinding
 import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
-import com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"

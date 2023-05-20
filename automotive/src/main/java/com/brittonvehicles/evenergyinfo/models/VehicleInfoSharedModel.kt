@@ -1,7 +1,9 @@
 package com.brittonvehicles.evenergyinfo.models
 
+import android.car.VehicleUnit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.brittonvehicles.evenergyinfo.formatCarUnitDistanceFromKilometers
 
 class VehicleInfoSharedModel : ViewModel() {
 
@@ -14,6 +16,20 @@ class VehicleInfoSharedModel : ViewModel() {
     private val _make = MutableLiveData<String>()
     private val _model = MutableLiveData<String>()
     private val _modelYear = MutableLiveData<Int>()
+    private val _distanceDisplayUnit = MutableLiveData<Int>(VehicleUnit.MILE)
+    private val _evDisplayUnit = MutableLiveData<Int>(VehicleUnit.KILOWATT_HOUR)
+
+    fun setDistanceDisplayUnit(value:Int){
+        _distanceDisplayUnit.value = value
+    }
+    val distanceDisplayUnit : MutableLiveData<Int>
+        get()= _distanceDisplayUnit
+
+    fun setEvDisplayUnit(value:Int){
+        _evDisplayUnit.value = value
+    }
+    val evDisplayUnit:MutableLiveData<Int>
+        get() = _evDisplayUnit
 
     fun setVin(value: String) {
         _vin.value = value
@@ -43,4 +59,22 @@ class VehicleInfoSharedModel : ViewModel() {
     val modelYear: MutableLiveData<Int>
         get() = _modelYear
 
+    // PERF_ODOMETER
+    private val _odometer = MutableLiveData<Float>()
+
+    fun setOdometer(value: Float){
+        _odometer.value = value
+    }
+    val odometer: MutableLiveData<Float>
+        get() = _odometer
+    val odometerFormatted:MutableLiveData<String>
+        get() = MutableLiveData<String>(formatCarUnitDistanceFromKilometers(_odometer.value , _distanceDisplayUnit.value ))
+
+    private val _currentGear = MutableLiveData<Int>()
+    fun setCurrentGear(value: Int) {
+        _currentGear.value = value
+    }
+
+    val currentGear: MutableLiveData<Int>
+        get() = _currentGear
 }

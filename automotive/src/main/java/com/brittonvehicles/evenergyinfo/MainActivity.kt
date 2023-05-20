@@ -11,12 +11,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.car.app.hardware.common.CarUnit
 import androidx.car.app.model.Distance.*
 import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
 import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
-import com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
     val vehicleInfoSharedModel by viewModels<VehicleInfoSharedModel>()
     val energyInfoSharedModel by viewModels<EnergyInfoSharedModel>()
-    val vehicleStatusSharedModel by viewModels<VehicleStatusSharedModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,6 +127,11 @@ class MainActivity : AppCompatActivity() {
             VehiclePropertyIds.EV_BATTERY_LEVEL,
             CarPropertyManager.SENSOR_RATE_ONCHANGE
         )
+        carPropertyManager.registerCallback(
+            carPropertyListener,
+            VehiclePropertyIds.DISTANCE_DISPLAY_UNITS,
+            CarPropertyManager.SENSOR_RATE_ONCHANGE
+        )
     }
 
     private fun setupCarTest(){
@@ -148,6 +150,8 @@ class MainActivity : AppCompatActivity() {
 //        field public static final int INFO_MODEL_YEAR = 289407235; // 0x11400103
 //        field public static final int INFO_VIN = 286261504; // 0x11100100
 //        field public static final int INVALID = 0; // 0x0
+        // DISTANCE_DISPLAY_UNITS
+     //   EV_BATTERY_DISPLAY_UNITS
 
         try {
             //carPropertyManager.setProperty( String.javaClass , VehiclePropertyIds.INFO_MAKE, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , "Ginetta")
@@ -156,8 +160,8 @@ class MainActivity : AppCompatActivity() {
         }catch (exception : Exception){
             Log.w(Companion.TAG, exception)
         }
-        vehicleStatusSharedModel.setOdometer(12323.23F as Float)
-        energyInfoSharedModel.setRemainingRange(397508F as Float)
+        vehicleInfoSharedModel.setOdometer(2000000F as Float)
+        energyInfoSharedModel.setRemainingRange(100000F as Float)
 //        val remaining = Distance.create(200.0, Distance.UNIT_KILOMETERS)
 //        Log.w(Companion.TAG,remaining.toString())
 
@@ -185,12 +189,12 @@ class MainActivity : AppCompatActivity() {
 
             if (id == VehiclePropertyIds.INFO_MAKE ) vehicleInfoSharedModel.setMake(prop.value as String)
             if (id == VehiclePropertyIds.INFO_MODEL ) vehicleInfoSharedModel.setModel(prop.value as String)
-            if (id == VehiclePropertyIds.CURRENT_GEAR) vehicleStatusSharedModel.setCurrentGear(prop.value as Int)
+            if (id == VehiclePropertyIds.CURRENT_GEAR) vehicleInfoSharedModel.setCurrentGear(prop.value as Int)
             if (id == VehiclePropertyIds.EV_BATTERY_LEVEL)energyInfoSharedModel.setBatteryLevelPercentage(prop.value as Float)
             if (id == VehiclePropertyIds.RANGE_REMAINING) energyInfoSharedModel.setRemainingRange(prop.value as Float)
-            if (id == VehiclePropertyIds.PERF_ODOMETER) vehicleStatusSharedModel.setOdometer(prop.value as Float)
-           // if (id == VehiclePropertyIds.INFO_FUEL_TYPE && prop.value is Array<*>)
-
+            if (id == VehiclePropertyIds.PERF_ODOMETER) vehicleInfoSharedModel.setOdometer(prop.value as Float)
+            if (id == VehiclePropertyIds.DISTANCE_DISPLAY_UNITS) vehicleInfoSharedModel.setDistanceDisplayUnit(prop.value as Int)
+            if (id == VehiclePropertyIds.EV_BATTERY_DISPLAY_UNITS) vehicleInfoSharedModel.setEvDisplayUnit(prop.value as Int)
 
         }
 
