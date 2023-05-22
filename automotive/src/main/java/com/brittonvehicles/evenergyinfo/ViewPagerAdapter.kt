@@ -17,7 +17,7 @@ public class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifec
 
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return HomFragment()
+            0 -> return HomeFragment()
             1 -> return ChargingFragment()
             2 -> return StatsFragment()
         }

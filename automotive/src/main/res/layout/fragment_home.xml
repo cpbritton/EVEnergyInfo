@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomFragment">
+    tools:context=".HomeFragment">
     <data>
         <variable
             name="evInfoModel"
             type="com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel" />
         <variable
             name="vehicleStatusModel"
-            type="com.brittonvehicles.evenergyinfo.models.VehicleStatusSharedModel" />
+            type="com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

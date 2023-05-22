@@ -7,36 +7,37 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.brittonvehicles.evenergyinfo.databinding.FragmentMainBinding
+import com.brittonvehicles.evenergyinfo.databinding.FragmentHomeBinding
 import com.brittonvehicles.evenergyinfo.databinding.GearSelectorViewBinding
 import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
+import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
 
-class HomFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     companion object {
-        private const val TAG = "HomFragment"
+        private const val TAG = "HomeFragment"
     }
 
-    private val vehicleStatusSharedModel by activityViewModels<VehicleStatusSharedModel>()
+    private val vehicleInfoSharedModel by activityViewModels<VehicleInfoSharedModel>()
     private val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel> ()
     private lateinit var gsBinding: GearSelectorViewBinding
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         gsBinding = GearSelectorViewBinding.inflate(layoutInflater)
         binding.gearSelectorPoint.addView(gsBinding.root)
 
-        vehicleStatusSharedModel.currentGear.observe(viewLifecycleOwner, Observer<Int> { item ->
+        vehicleInfoSharedModel.currentGear.observe(viewLifecycleOwner, Observer<Int> { item ->
             updateGear(item)
         })
 
         binding.apply {
             evInfoModel = energyInfoSharedModel
-            vehicleStatusModel = vehicleStatusSharedModel
+            vehicleStatusModel = vehicleInfoSharedModel
         }
         return binding.root
     }
