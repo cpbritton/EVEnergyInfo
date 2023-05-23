@@ -1,9 +1,11 @@
 package com.brittonvehicles.evenergyinfo.models
 
 import android.car.VehicleUnit
+import androidx.car.app.hardware.common.CarUnit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brittonvehicles.evenergyinfo.formatCarUnitDistanceFromKilometers
+import com.brittonvehicles.evenergyinfo.formatCarUnitDistanceFromMeters
 
 class VehicleInfoSharedModel : ViewModel() {
 
@@ -18,7 +20,14 @@ class VehicleInfoSharedModel : ViewModel() {
     private val _modelYear = MutableLiveData<Int>()
     private val _distanceDisplayUnit = MutableLiveData<Int>(VehicleUnit.MILE)
     private val _evDisplayUnit = MutableLiveData<Int>(VehicleUnit.KILOWATT_HOUR)
-
+    private val _batteryCapacity = MutableLiveData<Float>()
+    private val _connectorType = MutableLiveData<Int>()
+    private val _portLocation = MutableLiveData<Int>()
+    private val _chargePortOpen = MutableLiveData<Boolean>()
+    private val _chargePortConnected = MutableLiveData<Boolean>()
+    private val _instantaneousChargeRate = MutableLiveData<Float>()
+    private val _batteryLevelPercentage = MutableLiveData<Float>()
+    private val _remainingRange = MutableLiveData<Float>()
     fun setDistanceDisplayUnit(value:Int){
         _distanceDisplayUnit.value = value
     }
@@ -77,4 +86,28 @@ class VehicleInfoSharedModel : ViewModel() {
 
     val currentGear: MutableLiveData<Int>
         get() = _currentGear
+
+
+
+    fun setRemainingRange(value: Float){
+        _remainingRange.value = value
+    }
+    val remainingRange:MutableLiveData<Float>
+        get() = _remainingRange
+    val remainingRangeFormatted:MutableLiveData<String>
+        get() = MutableLiveData<String>(formatCarUnitDistanceFromMeters(_remainingRange.value,  _distanceDisplayUnit.value))
+    fun setBatteryLevelPercentage(value: Float) {
+        _batteryLevelPercentage.value = value
+    }
+
+    val batteryLevelPercentage: MutableLiveData<Float>
+        get() = _batteryLevelPercentage
+
+    fun setBatterCapacity(value:Float){
+        _batteryCapacity.value = value
+    }
+
+    val batteryCapacity:MutableLiveData<Float>
+        get()= _batteryCapacity
+
 }

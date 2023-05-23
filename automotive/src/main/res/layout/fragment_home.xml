@@ -6,9 +6,6 @@
     tools:context=".HomeFragment">
     <data>
         <variable
-            name="evInfoModel"
-            type="com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel" />
-        <variable
             name="vehicleStatusModel"
             type="com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel" />
     </data>
@@ -38,7 +35,7 @@
         android:layout_height="60dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif-black"
-        android:text="@{evInfoModel.remainingRangeFormatted}"
+        android:text="@{vehicleStatusModel.remainingRangeFormatted}"
         android:textAlignment="center"
         android:textSize="24sp"
         tools:ignore="HardcodedText,TextSizeCheck" />

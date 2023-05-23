@@ -1,29 +1,18 @@
 package com.brittonvehicles.evenergyinfo
 
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import com.brittonvehicles.evenergyinfo.databinding.FragmentChargingBinding
+import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
 import com.ekndev.gaugelibrary.ArcGauge
 import com.ekndev.gaugelibrary.Range
 import com.ekndev.gaugelibrary.contract.ValueFormatter
-import android.car.Car
-import android.car.CarInfoManager
-import android.car.VehiclePropertyIds
-import android.car.hardware.CarPropertyValue
-import android.car.hardware.property.CarPropertyManager
-import android.content.ComponentName
-import android.os.IBinder
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
-import com.brittonvehicles.evenergyinfo.databinding.FragmentChargingBinding
-import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
-import com.google.android.material.color.MaterialColors
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,10 +34,9 @@ class ChargingFragment : Fragment() {
     private lateinit var batteryVoltage: ArcGauge
     private lateinit var batteryTemp: ArcGauge
 
-    val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel>()
+    val vehicleInfoSharedModel by activityViewModels<VehicleInfoSharedModel>()
 
-    private var _binding: FragmentChargingBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding:  FragmentChargingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -172,7 +160,7 @@ class ChargingFragment : Fragment() {
     ): View {
 
         // inflate the layout and bind to the _binding
-        _binding = FragmentChargingBinding.inflate(inflater, container, false)
+        binding = FragmentChargingBinding.inflate(inflater, container, false)
 
         chargeGauge = binding.chargeGauge
         batteryTemp = binding.batteryTemp
@@ -183,7 +171,7 @@ class ChargingFragment : Fragment() {
 
 
         // TODO: this is wrong metric 
-        energyInfoSharedModel.batteryLevelPercentage.observe(viewLifecycleOwner, Observer<Float> { item ->
+        vehicleInfoSharedModel.batteryLevelPercentage.observe(viewLifecycleOwner, Observer<Float> { item ->
             chargeGauge.value = item.toDouble()
         })
 
@@ -193,6 +181,5 @@ class ChargingFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.brittonvehicles.evenergyinfo.databinding.FragmentInfoBinding
-import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,8 +26,6 @@ class InfoFragment : Fragment() {
     private var param2: String? = null
 
     val vehicleInfoSharedModel by activityViewModels<VehicleInfoSharedModel>()
-    val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel>()
-    val vehicleStatusSharedModel by activityViewModels<VehicleStatusSharedModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

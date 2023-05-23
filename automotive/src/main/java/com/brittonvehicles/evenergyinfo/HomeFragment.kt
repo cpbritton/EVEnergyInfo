@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.brittonvehicles.evenergyinfo.databinding.FragmentHomeBinding
 import com.brittonvehicles.evenergyinfo.databinding.GearSelectorViewBinding
-import com.brittonvehicles.evenergyinfo.models.EnergyInfoSharedModel
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
 
 class HomeFragment : Fragment() {
@@ -19,7 +18,6 @@ class HomeFragment : Fragment() {
     }
 
     private val vehicleInfoSharedModel by activityViewModels<VehicleInfoSharedModel>()
-    private val energyInfoSharedModel by activityViewModels<EnergyInfoSharedModel> ()
     private lateinit var gsBinding: GearSelectorViewBinding
     private lateinit var binding: FragmentHomeBinding
 
@@ -36,7 +34,6 @@ class HomeFragment : Fragment() {
         })
 
         binding.apply {
-            evInfoModel = energyInfoSharedModel
             vehicleStatusModel = vehicleInfoSharedModel
         }
         return binding.root

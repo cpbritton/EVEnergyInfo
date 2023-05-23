@@ -32,16 +32,16 @@ fun getDefaultSpeedUnit(): Int {
 
 fun formatCarUnitDistanceFromKilometers(value: Float?, unit: Int?): String {
     if (value == null) return ""
-    return formatCarUnitDistance(value *1000 , getDefaultDistanceUnit())
+    return formatCarUnitDistanceFromMeters(value *1000 , unit)
 }
-fun formatCarUnitDistance(value: Float?, unit: Int?): String {
+fun formatCarUnitDistanceFromMeters(value: Float?, unit: Int?): String {
     if (value == null) return ""
     return when (unit ?: getDefaultDistanceUnit()) {
         // distance units: base unit is meters
-        CarUnit.METER -> "%.0f m".format(value)
-        CarUnit.KILOMETER -> "%.1f km".format(value / 1000)
-        CarUnit.MILLIMETER -> "%.0f mm".format(value * 1000) // whoever uses that...
-        CarUnit.MILE -> "%.1f miles".format(value / 1000 / kmPerMile)
+        VehicleUnit.METER -> "%.0f m".format(value)
+        VehicleUnit.KILOMETER -> "%.1f km".format(value / 1000)
+        VehicleUnit.MILLIMETER -> "%.0f mm".format(value * 1000) // whoever uses that...
+        VehicleUnit.MILE -> "%.1f miles".format(value / 1000 / kmPerMile)
         else -> ""
     }
 }
