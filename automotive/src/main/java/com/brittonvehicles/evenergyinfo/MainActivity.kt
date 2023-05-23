@@ -1,24 +1,23 @@
 package com.brittonvehicles.evenergyinfo
 
 import android.car.Car
-import android.car.VehicleAreaType
 import android.car.VehiclePropertyIds
 import android.car.hardware.CarPropertyValue
 import android.car.hardware.property.CarPropertyManager
+import android.content.pm.PackageManager
 import android.graphics.Color
-
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.brittonvehicles.evenergyinfo.databinding.ActivityMainBinding
 import com.brittonvehicles.evenergyinfo.models.VehicleInfoSharedModel
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 
+private const val REQUEST_CODE_ASK_PERMISSIONS = 1
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     private val tabsArray = arrayOf( "Home", "Charging","Stats", "Info")
 
@@ -30,71 +29,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
 
-        val viewPager = binding.viewPager
-        val tabLayout = binding.tabLayout
+        // CRequest dangerous permissions only
+        // Request dangerous permissions only
+        val dangPermToRequest = checkDangerousPermissions()
 
-        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
-        viewPager.adapter = adapter
+        if (dangPermToRequest.isEmpty()) {
+            main()
+        } else {
+            requestDangerousPermissions(dangPermToRequest)
+            // CB:
+            // onRequestPermissionsResult()
+        }
 
-       TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-           when (position) {
-               0 -> {
-                   tab.text = tabsArray[position]
-                   tab.setIcon( R.drawable.ic_tab0)
-                   tab.icon?.setTint(Color.WHITE)
-               }
-               1 -> {
-                   tab.text = tabsArray[position]
-                   tab.setIcon( R.drawable.ic_tab1)
-                   tab.icon?.setTint(Color.GRAY)
-               }
-               2 -> {
-                   tab.text = tabsArray[position]
-                   tab.setIcon( R.drawable.ic_tab2)
-                   tab.icon?.setTint(Color.GRAY)
-               }
-               3 -> {
-                   tab.text = tabsArray[position]
-                   tab.setIcon( R.drawable.ic_tab2)
-                   tab.icon?.setTint(Color.GRAY)
-               }
-           }
-       }.attach()
 
-        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                tabLayout.getTabAt(0)?.icon?.setTint(Color.GRAY)
-                tabLayout.getTabAt(1)?.icon?.setTint(Color.GRAY)
-                tabLayout.getTabAt(2)?.icon?.setTint(Color.GRAY)
-                tabLayout.getTabAt(3)?.icon?.setTint(Color.GRAY)
-                when (tab.position) {
-                    0 -> {
-                        tab.icon?.setTint(Color.WHITE)
-                    }
-                    1 -> {
-                        tab.icon?.setTint(Color.WHITE)
-                    }
-                    2 -> {
-                        tab.icon?.setTint(Color.WHITE)
-                    }
-                    3 -> {
-                        tab.icon?.setTint(Color.WHITE)
-                   }
-                }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
-
-        car = Car.createCar(this)
-        carPropertyManager = car.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager;
-        setupListeners()
-        setupCarTest()
     }
 
     private fun setupListeners(){
@@ -125,6 +74,11 @@ class MainActivity : AppCompatActivity() {
         )
         carPropertyManager.registerCallback(
             carPropertyListener,
+            VehiclePropertyIds.INFO_EV_BATTERY_CAPACITY,
+            CarPropertyManager.SENSOR_RATE_ONCHANGE
+        )
+        carPropertyManager.registerCallback(
+            carPropertyListener,
             VehiclePropertyIds.DISTANCE_DISPLAY_UNITS,
             CarPropertyManager.SENSOR_RATE_ONCHANGE
         )
@@ -151,31 +105,18 @@ class MainActivity : AppCompatActivity() {
 
         try {
             //carPropertyManager.setProperty( String.javaClass , VehiclePropertyIds.INFO_MAKE, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , "Ginetta")
-            carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.RANGE_REMAINING, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 247)
-            carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.PERF_ODOMETER, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 100000)
+            //carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.RANGE_REMAINING, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 247)
+            //carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.PERF_ODOMETER, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 100000)
+            //carPropertyManager.setProperty( Float.javaClass , VehiclePropertyIds.EV_BATTERY_LEVEL, VehicleAreaType.VEHICLE_AREA_TYPE_GLOBAL , 70)
         }catch (exception : Exception){
-            Log.w(Companion.TAG, exception)
+            Log.w(TAG, exception)
         }
-        vehicleInfoSharedModel.setOdometer(10000F as Float)
-        vehicleInfoSharedModel.setRemainingRange(100000F as Float)
-//        val remaining = Distance.create(200.0, Distance.UNIT_KILOMETERS)
-//        Log.w(Companion.TAG,remaining.toString())
 
-//        val measureS : LocaleData.MeasurementSystem  = LocaleData.getMeasurementSystem(ULocale.getDefault())
-//        Log.w(TAG, measureS.toString())
+        // Test since we cannot set this via ADB or I dont know how
+//        vehicleInfoSharedModel.setOdometer(10000F )
+//        vehicleInfoSharedModel.setRemainingRange(100000F )
 
     }
-
-//    fun getDistanceInDeviceUnit(context: Context, distance: Double): String {
-//        val resources = context.resources
-//        val unitAbbreviation = resources.configuration.units
-//        val unitMultiplier = when (unitAbbreviation) {
-//            "metric" -> 1.0
-//            "imperial" -> 0.621371
-//            else -> throw IllegalArgumentException("Unsupported unit abbreviation: $unitAbbreviation")
-//        }
-//        return String.format("%.2f %s", distance * unitMultiplier, unitAbbreviation)
-//    }
 
 
 
@@ -185,8 +126,10 @@ class MainActivity : AppCompatActivity() {
 
             if (id == VehiclePropertyIds.INFO_MAKE ) vehicleInfoSharedModel.setMake(prop.value as String)
             if (id == VehiclePropertyIds.INFO_MODEL ) vehicleInfoSharedModel.setModel(prop.value as String)
+            if (id == VehiclePropertyIds.INFO_MODEL_YEAR ) vehicleInfoSharedModel.setModelYear(prop.value as Int)
             if (id == VehiclePropertyIds.CURRENT_GEAR) vehicleInfoSharedModel.setCurrentGear(prop.value as Int)
-            if (id == VehiclePropertyIds.EV_BATTERY_LEVEL)vehicleInfoSharedModel.setBatteryLevelPercentage(prop.value as Float)
+            if (id == VehiclePropertyIds.EV_BATTERY_LEVEL)vehicleInfoSharedModel.setBatteryLevel(prop.value as Float)
+            if (id == VehiclePropertyIds.INFO_EV_BATTERY_CAPACITY)vehicleInfoSharedModel.setBatterCapacity(prop.value as Float)
             if (id == VehiclePropertyIds.RANGE_REMAINING) vehicleInfoSharedModel.setRemainingRange(prop.value as Float)
             if (id == VehiclePropertyIds.PERF_ODOMETER) vehicleInfoSharedModel.setOdometer(prop.value as Float)
             if (id == VehiclePropertyIds.DISTANCE_DISPLAY_UNITS) vehicleInfoSharedModel.setDistanceDisplayUnit(prop.value as Int)
@@ -200,6 +143,115 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val TAG: String? = "MainActivity"
+    }
+
+    private fun setupUX(){
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        val viewPager = binding.viewPager
+        val tabLayout = binding.tabLayout
+
+        val adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = tabsArray[position]
+                    tab.setIcon( R.drawable.ic_tab0)
+                    tab.icon?.setTint(Color.WHITE)
+                }
+                1 -> {
+                    tab.text = tabsArray[position]
+                    tab.setIcon( R.drawable.ic_tab1)
+                    tab.icon?.setTint(Color.GRAY)
+                }
+                2 -> {
+                    tab.text = tabsArray[position]
+                    tab.setIcon( R.drawable.ic_tab2)
+                    tab.icon?.setTint(Color.GRAY)
+                }
+                3 -> {
+                    tab.text = tabsArray[position]
+                    tab.setIcon( R.drawable.ic_tab2)
+                    tab.icon?.setTint(Color.GRAY)
+                }
+            }
+        }.attach()
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                tabLayout.getTabAt(0)?.icon?.setTint(Color.GRAY)
+                tabLayout.getTabAt(1)?.icon?.setTint(Color.GRAY)
+                tabLayout.getTabAt(2)?.icon?.setTint(Color.GRAY)
+                tabLayout.getTabAt(3)?.icon?.setTint(Color.GRAY)
+                when (tab.position) {
+                    0 -> {
+                        tab.icon?.setTint(Color.WHITE)
+                    }
+                    1 -> {
+                        tab.icon?.setTint(Color.WHITE)
+                    }
+                    2 -> {
+                        tab.icon?.setTint(Color.WHITE)
+                    }
+                    3 -> {
+                        tab.icon?.setTint(Color.WHITE)
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_ASK_PERMISSIONS) {
+            //if check for "all permissions have been granted"
+            if (!grantResults.contains(PackageManager.PERMISSION_DENIED))
+            {
+                main()
+            }
+        }
+    }
+
+    private fun main() {
+        setupCar()
+        setupUX()
+        setupListeners()
+        setupCarTest()
+    }
+
+    private fun setupCar() {
+        car = Car.createCar(this)
+        carPropertyManager = car.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager
+    }
+
+    private fun checkDangerousPermissions(): List<String> {
+        val permissions: MutableList<String> = ArrayList()
+        if (checkSelfPermission(Car.PERMISSION_SPEED) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Car.PERMISSION_SPEED)
+        }
+        if (checkSelfPermission(Car.PERMISSION_ENERGY) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Car.PERMISSION_ENERGY)
+        }
+        if (checkSelfPermission(Car.PERMISSION_ENERGY_PORTS) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Car.PERMISSION_ENERGY_PORTS)
+        }
+        return permissions
+    }
+
+    private fun requestDangerousPermissions(permissions: List<String>) {
+        requestPermissions(permissions.toTypedArray<String>(), REQUEST_CODE_ASK_PERMISSIONS)
     }
 
 

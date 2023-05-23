@@ -12,4 +12,5 @@
     <string name="charge_history_total_charged">Total Charged</string>
     <string name="car_permission_desc_mock_vehicle_hal">Mock Permissions</string>
     <string name="car_permission_label_mock_vehicle_hal">mockhal</string>
+    <string name="car_model_year_label">Model Year</string>
 </resources>
